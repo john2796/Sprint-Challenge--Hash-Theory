@@ -80,7 +80,7 @@ void hash_table_remove(HashTable *ht, char *key)
 
   } else {
 
-    if (previous_pair == NULL) {  // Removing the first element in the Linked List
+    if (previous_pair == NULL) { 
       ht->storage[index] = current_pair->next;
     } else {
       previous_pair->next = current_pair->next;

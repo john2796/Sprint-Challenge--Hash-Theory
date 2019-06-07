@@ -3,13 +3,26 @@
 #include "hashtable.h"
 #include "ex1.h"
 
-Answer *get_indices_of_item_weights(int *weights, int length, int limit)
-{
+Answer *get_indices_of_item_weights(int *weights, int length, int limit){
   HashTable *ht = create_hash_table(16);
+  Answer *answer = malloc(sizeof(Answer)); 
+  // YOUR CODE HERE
+  if (length < 2) {
+    return NULL;
+  }
+  for (int i = 0; i < length; i++) {
+    int find = hash_table_retrieve(ht, weights[i]);
+    if (find != -1) {
+      answer->index_1 = i;
+      answer->index_2 = find;
+      destroy_hash_table(ht);
+      return answer;
+    } else {
+      hash_table_insert(ht, limit-weights[i], i);
+    }
+  }
 
-  /* YOUR CODE HERE */
-
-  return NULL;
+  return answer; 
 }
 
 void print_answer(Answer *answer)
@@ -24,6 +37,7 @@ void print_answer(Answer *answer)
 #ifndef TESTING
 int main(void)
 {
+
   // TEST 1
   int weights_1 = {9};
   Answer *answer_1 = get_indices_of_item_weights(&weights_1, 1, 9);
@@ -46,5 +60,4 @@ int main(void)
 
   return 0;
 }
-
 #endif
